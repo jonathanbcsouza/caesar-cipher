@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import SubmitBtn from "./SubmitBtn";
 
-function TextEncoder({ selectedShift, isEncoding, message, outputMsg }) {
+function TextEncoder({ selectedShift, isEncoding }) {
   const [text, setText] = useState("");
   const [output, setOutput] = useState("");
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -62,12 +63,7 @@ function TextEncoder({ selectedShift, isEncoding, message, outputMsg }) {
         <h2>Text {isEncoding ? "Encoder" : "Decoder"}</h2>
 
         <label>Text to {isEncoding ? "encrypt" : "decrypt"}</label>
-        <textarea
-          type="text"
-          id="input"
-          message={text}
-          onChange={handleTextChange}
-        />
+        <textarea type="text" id="input" onChange={handleTextChange} />
 
         <label>{isEncoding ? "Encoded" : "Decoded"} message:</label>
         <textarea
@@ -78,9 +74,10 @@ function TextEncoder({ selectedShift, isEncoding, message, outputMsg }) {
         />
       </div>
 
-      <button onClick={handleEncodeDecode}>
-        {isEncoding ? "Encode " : "Decode "} message
-      </button>
+      <SubmitBtn
+        isEncoding={isEncoding}
+        onClick={handleEncodeDecode}
+      ></SubmitBtn>
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import React from "react";
-
 function SwitchButton({ isEncoding, onClick }) {
   return (
     <button onClick={onClick}>

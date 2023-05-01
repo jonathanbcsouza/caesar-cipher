@@ -4,7 +4,7 @@ import TextEncoder from "./components/TextEncoder";
 import "./styles.css";
 
 function App() {
-  const [shift, setShift] = useState(0);
+  const [shift, setShift] = useState(1);
   const [isEncoding, setIsEncoding] = useState(true);
 
   function handleShiftChange(event) {
