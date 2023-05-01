@@ -1,18 +1,34 @@
 import React, { useState } from "react";
-import NewAlphabet from "./components/NewAlphabet";
-import TextConverter from "./components/TextConverter";
+import SwitchButton from "./components/SwitchButton";
+import TextEncoder from "./components/TextEncoder";
+import "./styles.css";
 
 function App() {
-  const [newAlphabet, setNewAlphabet] = useState("");
+  const [shift, setShift] = useState(0);
+  const [isEncoding, setIsEncoding] = useState(true);
 
-  function handleSaveAlphabet(alphabet) {
-    setNewAlphabet(alphabet);
+  function handleShiftChange(event) {
+    setShift(parseInt(event.target.value, 10));
+  }
+
+  function handleToggleEncoding() {
+    setIsEncoding(!isEncoding);
   }
 
   return (
     <div>
-      <NewAlphabet onSaveAlphabet={handleSaveAlphabet} />
-      {newAlphabet && <TextConverter newAlphabet={newAlphabet} />}
+      <h1>Caesar Cipher</h1>
+      <label>Encoding key number:</label>
+      <input
+        type="number"
+        id="shift"
+        value={shift}
+        onChange={handleShiftChange}
+        min="1"
+        max="10"
+      />
+      <TextEncoder selectedShift={shift} isEncoding={isEncoding} />
+      <SwitchButton isEncoding={isEncoding} onClick={handleToggleEncoding} />
     </div>
   );
 }

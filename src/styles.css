@@ -1,4 +1,18 @@
-.App {
+* {
   font-family: sans-serif;
-  text-align: center;
+}
+
+input,
+button {
+  margin: 10px 10px;
+}
+
+textarea {
+  margin: 10px;
+  height: 4em;
+}
+
+.encoding-area {
+  display: flex;
+  flex-direction: column;
 }
