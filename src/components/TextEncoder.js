@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import SubmitBtn from "./SubmitBtn";
+import SubmitButton from "./SubmitButton";
+import SwitchButton from "./SwitchButton";
 
-function TextEncoder({ selectedShift, isEncoding }) {
+function TextEncoder({ selectedShift }) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const [text, setText] = useState("");
   const [output, setOutput] = useState("");
-  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const [isEncoding, setIsEncoding] = useState(true);
 
   function handleTextChange(event) {
     setText(event.target.value);
   }
 
-  function handleOutputChange(event) {
-    setOutput(event.target.value);
+  function handleToggleEncoding() {
+    setIsEncoding(!isEncoding);
+    setText("");
+    setOutput("");
   }
 
   function handleEncodeDecode() {
     const shiftedAlphabet = alphabet
       .split("")
-      .map((char, index) =>
+      .map((char) =>
         String.fromCharCode(
           ((char.charCodeAt(0) - 97 + selectedShift) % 26) + 97
         )
@@ -63,21 +67,29 @@ function TextEncoder({ selectedShift, isEncoding }) {
         <h2>Text {isEncoding ? "Encoder" : "Decoder"}</h2>
 
         <label>Text to {isEncoding ? "encrypt" : "decrypt"}</label>
-        <textarea type="text" id="input" onChange={handleTextChange} />
+        <textarea
+          type="text"
+          id="input"
+          value={text}
+          onChange={handleTextChange}
+        />
 
         <label>{isEncoding ? "Encoded" : "Decoded"} message:</label>
         <textarea
           type="text"
           id="output"
           value={output}
-          onChange={handleOutputChange}
+          onChange={handleTextChange}
+          disabled
         />
       </div>
 
-      <SubmitBtn
+      <SubmitButton
         isEncoding={isEncoding}
         onClick={handleEncodeDecode}
-      ></SubmitBtn>
+      ></SubmitButton>
+
+      <SwitchButton isEncoding={isEncoding} onClick={handleToggleEncoding} />
     </div>
   );
 }

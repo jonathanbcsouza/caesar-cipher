@@ -1,4 +1,4 @@
-function SubmitBtn({ isEncoding, onClick }) {
+function SubmitButton({ isEncoding, onClick }) {
   return (
     <button onClick={onClick}>
       {isEncoding ? "Encode " : "Decode "} message
@@ -6,4 +6,4 @@ function SubmitBtn({ isEncoding, onClick }) {
   );
 }
 
-export default SubmitBtn;
+export default SubmitButton;
