@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import SubmitButton from "./SubmitButton";
-import SwitchButton from "./SwitchButton";
+import Button from "./Button";
 
 function TextEncoder({ selectedShift }) {
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -84,12 +83,19 @@ function TextEncoder({ selectedShift }) {
         />
       </div>
 
-      <SubmitButton
+      <Button
         isEncoding={isEncoding}
         onClick={handleEncodeDecode}
-      ></SubmitButton>
+        encoding="Encode"
+        decoding="Decode"
+      ></Button>
 
-      <SwitchButton isEncoding={isEncoding} onClick={handleToggleEncoding} />
+      <Button
+        isEncoding={isEncoding}
+        onClick={handleToggleEncoding}
+        encoding="Encode"
+        decoding="Decode"
+      ></Button>
     </div>
   );
 }
