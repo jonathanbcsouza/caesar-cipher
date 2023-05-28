@@ -63,9 +63,8 @@ function TextEncoder({ selectedShift }) {
   return (
     <div>
       <div className="encoding-area">
-        <h2>Text {isEncoding ? "Encoder" : "Decoder"}</h2>
-
-        <label>Text to {isEncoding ? "encrypt" : "decrypt"}</label>
+        <br />
+        <label>Text to {isEncoding ? "encrypt" : "decrypt"}:</label>
         <textarea
           type="text"
           id="input"
@@ -85,16 +84,14 @@ function TextEncoder({ selectedShift }) {
 
       <Button
         isEncoding={isEncoding}
+        name={isEncoding ? "Encode" : "Decode"}
         onClick={handleEncodeDecode}
-        encoding="Encode"
-        decoding="Decode"
       ></Button>
 
       <Button
         isEncoding={isEncoding}
+        name={"Switch to " + (!isEncoding ? "Encode" : "Decode")}
         onClick={handleToggleEncoding}
-        encoding="Encode"
-        decoding="Decode"
       ></Button>
     </div>
   );
