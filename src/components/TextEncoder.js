@@ -7,17 +7,9 @@ function TextEncoder({ selectedShift }) {
   const [output, setOutput] = useState("");
   const [isEncoding, setIsEncoding] = useState(true);
 
-  function handleTextChange(event) {
-    setText(event.target.value);
-  }
+  function handleConvertion(event) {
+    const newText = event.target.value;
 
-  function handleToggleEncoding() {
-    setIsEncoding(!isEncoding);
-    setText("");
-    setOutput("");
-  }
-
-  function handleEncodeDecode() {
     const shiftedAlphabet = alphabet
       .split("")
       .map((char) =>
@@ -28,36 +20,41 @@ function TextEncoder({ selectedShift }) {
       .join("");
 
     if (isEncoding) {
-      // Encode the text using the shifted alphabet
-      const encodedText = text
-        .split("")
-        .map((char) => {
-          const index = alphabet.indexOf(char.toLowerCase());
-          if (index === -1) {
-            return char;
-          } else {
-            return shiftedAlphabet[index];
-          }
-        })
-        .join("");
-
+      let encodedText = "";
+      for (let i = 0; i < newText.length; i++) {
+        const letter = newText[i];
+        const index = alphabet.indexOf(letter.toLowerCase());
+        if (index !== -1) {
+          const encodedLetter = shiftedAlphabet[index];
+          encodedText += encodedLetter;
+        } else {
+          encodedText += letter;
+        }
+      }
+      setText(newText);
       setOutput(encodedText);
     } else {
-      // Decode the text using the shifted alphabet
-      const decodedText = text
-        .split("")
-        .map((char) => {
-          const index = shiftedAlphabet.indexOf(char.toLowerCase());
-          if (index === -1) {
-            return char;
-          } else {
-            return alphabet[index];
-          }
-        })
-        .join("");
-
+      // Decode the updated text using the shifted alphabet
+      let decodedText = "";
+      for (let i = 0; i < newText.length; i++) {
+        const letter = newText[i];
+        const index = shiftedAlphabet.indexOf(letter.toLowerCase());
+        if (index !== -1) {
+          const decodedLetter = alphabet[index];
+          decodedText += decodedLetter;
+        } else {
+          decodedText += letter;
+        }
+      }
+      setText(newText);
       setOutput(decodedText);
     }
+  }
+
+  function handleToggleEncoding() {
+    setIsEncoding(!isEncoding);
+    setText("");
+    setOutput("");
   }
 
   return (
@@ -69,7 +66,7 @@ function TextEncoder({ selectedShift }) {
           type="text"
           id="input"
           value={text}
-          onChange={handleTextChange}
+          onChange={handleConvertion}
         />
 
         <label>{isEncoding ? "Encoded" : "Decoded"} message:</label>
@@ -77,19 +74,12 @@ function TextEncoder({ selectedShift }) {
           type="text"
           id="output"
           value={output}
-          onChange={handleTextChange}
+          onChange={handleConvertion}
           disabled
         />
       </div>
 
       <Button
-        isEncoding={isEncoding}
-        name={isEncoding ? "Encode" : "Decode"}
-        onClick={handleEncodeDecode}
-      ></Button>
-
-      <Button
-        isEncoding={isEncoding}
         name={"Switch to " + (!isEncoding ? "Encode" : "Decode")}
         onClick={handleToggleEncoding}
       ></Button>
