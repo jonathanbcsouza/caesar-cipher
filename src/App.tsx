@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import TextEncoder from "./components/TextEncoder";
-import "./styles.css";
+import React, { useState } from 'react';
+import TextEncoder from './components/TextEncoder';
+import './styles.css';
 
 function App() {
   const [shift, setShift] = useState(1);
 
-  function handleShiftChange(event) {
+  function handleShiftChange(event: React.ChangeEvent<HTMLInputElement>) {
     setShift(parseInt(event.target.value, 10));
   }
 
