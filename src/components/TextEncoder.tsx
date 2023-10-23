@@ -41,6 +41,7 @@ export const TextEncoder: FC<TextEncoderProps> = ({ selectedShift }) => {
   const [output, setOutput] = useState<string>('');
   const [isEncoding, setIsEncoding] = useState<boolean>(true);
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const processType = isEncoding ? 'encrypt' : 'decrypt';
 
   const handleCopy = () => setIsCopied(true);
   const handleConversion = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -70,28 +71,32 @@ export const TextEncoder: FC<TextEncoderProps> = ({ selectedShift }) => {
   }, [selectedShift, text, isEncoding]);
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4">
+    <div className="flex flex-col items-center justify-center space-y-4 w-3/5 mx-auto">
       <div className="w-full max-w-md">
         <label className="block mb-2 font-bold text-gray-700">
-          Text to {isEncoding ? 'encrypt' : 'decrypt'}:
+          Text to {processType}:
         </label>
         <div className="relative">
           <textarea
             id="input"
             value={text}
             onChange={handleConversion}
-            className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className="block w-80 px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline resize-none"
+            rows={5}
+            placeholder={`Enter text to ${processType}`}
           />
         </div>
         <label className="block mb-2 font-bold text-gray-700">
-          {isEncoding ? 'Encoded' : 'Decoded'} message:
+          {processType} message:
         </label>
         <div className="relative">
           <textarea
             id="output"
             value={output}
             disabled
-            className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className="block w-80 px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline resize-none"
+            rows={5}
+            placeholder="Result will appear here"
           />
           <CopyToClipboardButton
             textToCopy={output}
