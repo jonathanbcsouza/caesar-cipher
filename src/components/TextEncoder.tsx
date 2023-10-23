@@ -61,18 +61,28 @@ const TextEncoder: FC<TextEncoderProps> = ({ selectedShift }) => {
   };
 
   return (
-    <div>
-      <div className="encoding-area">
+    <div className="flex flex-col items-center justify-center">
+      <div className="w-full max-w-md">
         <br />
-        <label>Text to {isEncoding ? 'encrypt' : 'decrypt'}:</label>
-        <textarea id="input" value={text} onChange={handleConversion} />
+        <label className="block mb-2 font-bold text-gray-700">
+          Text to {isEncoding ? 'encrypt' : 'decrypt'}:
+        </label>
+        <textarea
+          id="input"
+          value={text}
+          onChange={handleConversion}
+          className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+        />
 
-        <label>{isEncoding ? 'Encoded' : 'Decoded'} message:</label>
+        <label className="block mb-2 font-bold text-gray-700">
+          {isEncoding ? 'Encoded' : 'Decoded'} message:
+        </label>
         <textarea
           id="output"
           value={output}
           onChange={handleConversion}
           disabled
+          className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         />
       </div>
 
