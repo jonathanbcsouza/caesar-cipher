@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TextEncoder from './components/TextEncoder';
+import { TextEncoder } from './components/TextEncoder';
 
 function App() {
   const [shift, setShift] = useState(1);
