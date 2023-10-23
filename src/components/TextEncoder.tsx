@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FC } from 'react';
 import Button from './Button';
+import { CopyToClipboardButton } from './CopyToClipboardButton';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
@@ -41,6 +42,9 @@ const TextEncoder: FC<TextEncoderProps> = ({ selectedShift }) => {
   const [text, setText] = useState<string>('');
   const [output, setOutput] = useState<string>('');
   const [isEncoding, setIsEncoding] = useState<boolean>(true);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+
+  const handleCopy = () => setIsCopied(true);
 
   const handleConversion = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value;
@@ -52,38 +56,47 @@ const TextEncoder: FC<TextEncoderProps> = ({ selectedShift }) => {
         ? encode(newText, shiftedAlphabet)
         : decode(newText, shiftedAlphabet)
     );
+    setIsCopied(false);
   };
 
   const handleToggleEncoding = () => {
     setIsEncoding(!isEncoding);
     setText('');
     setOutput('');
+    setIsCopied(false);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center space-y-4">
       <div className="w-full max-w-md">
-        <br />
         <label className="block mb-2 font-bold text-gray-700">
           Text to {isEncoding ? 'encrypt' : 'decrypt'}:
         </label>
-        <textarea
-          id="input"
-          value={text}
-          onChange={handleConversion}
-          className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        />
+        <div className="relative">
+          <textarea
+            id="input"
+            value={text}
+            onChange={handleConversion}
+            className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          />
+        </div>
 
         <label className="block mb-2 font-bold text-gray-700">
           {isEncoding ? 'Encoded' : 'Decoded'} message:
         </label>
-        <textarea
-          id="output"
-          value={output}
-          onChange={handleConversion}
-          disabled
-          className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        />
+        <div className="relative">
+          <textarea
+            id="output"
+            value={output}
+            disabled
+            className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          />
+          <CopyToClipboardButton
+            textToCopy={output}
+            isCopied={isCopied}
+            onCopy={handleCopy}
+          />
+        </div>
       </div>
 
       <Button
